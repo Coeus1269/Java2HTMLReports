@@ -7,6 +7,7 @@ import StringUtils.StringUtils;
 public class Java2HTMLReportBuilder 
 {
 	// This builder will automatically build the order by from the columns in the Sections_lhm and append any specified order by (OrderBy_str) to it.
+	
 	// Table formatting can be Managed with css
 	//			i.e.; table, th, td {border: 1px solid black; border-collapse: collapse; width: 80%; text-align: center; table-layout: fixed;	}
 	// 			Row Hover - tr:hover {background-color: #f5f5f5;}
@@ -21,12 +22,25 @@ public class Java2HTMLReportBuilder
 	//		p.ReportHeader	
 	//		p.ReportFooter	
 	//		p.ReportPageNumber
+	
+	// example CSS
+//	<style>
+//		p.ReportTitle  { color: red; font-family: impact; font-size: 200%;  background-color:lightblue; border: 5px solid grey; width: 60%; text-align: right;}
+//    	p.ReportHeader {font-size: 150%;text-align: center;}
+//	    p.ReportHeaderDivider {  text-align: center;}
+//		table {width: 70%; margin-left: auto; margin-right: auto; }
+//	    table, th, td {border: 1px solid black; border-collapse: collapse; cellpadding="5"; }
+//	    th {background-color: #9999CC;}
+//	    tr:nth-child(odd) {background-color: #f2f2f2;}
+//	    caption {  caption-side: bottom; }
+//	        
+//	    p.ReportFooter {font-size: 75%; text-align: center;}
+//	    p.ReportPageNumber {font-size: 75%; text-align: right;}
+//	</style>
 
 	
 	// TODO: auto calculate data table width % based on total size of biggest data elements in each column
 	// TODO: calculate pages for printing page numbers
-	
-	// TODO: 
 	
 
 		public String Title_str = "Report Main Title"; 
