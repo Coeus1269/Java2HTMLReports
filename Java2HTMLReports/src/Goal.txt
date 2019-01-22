@@ -1,28 +1,26 @@
 Java 2 HTML report creator
 
-
 Testing for browser - format specific etc.
 
-
 Needs:
-	Title
-	Header
-	Page Title - Ability to change page title inside report based on some criteria?
-	Page Header - Ability to change page header inside report  based on some criteria?
-Data Table - LinkedHashMap, ordered hash of header name and source column name 
-Grouping - group by columns?
-Sectioning - LinkedHashMap, ordered hash of  column data to section on. I.e. new section when column changes,
- subsequent items are sectioned inside the previous one.
-	Optional Divider before and / or after
-Section Sums and totals
-	Optional Divider
-Page Sums and totals
-	Optional Divider
-Grand  Sums and totals - after all sectioning
-	Optional Divider
-Page breaks & numbering - how to tell when to make page breaks and add footers etc.
-Page footer
-Dividers
+	Done: Title
+	Done: Header
+	Done: Page Title 
+	Done: Page Header
+	Data Table - LinkedHashMap, ordered hash of header name and source column name 
+	Grouping - group by columns?
+	Sectioning - LinkedHashMap, ordered hash of  column data to section on. I.e. new section when column changes,
+ 		subsequent items are sectioned inside the previous one.
+	Done: Optional Divider before and / or after
+	Section Sums and totals
+		Optional Divider
+	Page Sums and totals
+		Optional Divider
+	Grand  Sums and totals - after all sectioning
+		Optional Divider
+	Page breaks & numbering - how to tell when to make page breaks and add footers etc.
+	Done: Page footer
+	Done: Section Dividers
 
 OnClick links functionality
 
@@ -30,10 +28,12 @@ OnClick links functionality
 
 Dev IDE integration for graphical interface ?
 
-No dependancies on comercial products
+No dependencies on commercial products
 Clear documentation and instructions
 Base default settings 
+Most formatting from CSS
 Store settings outside of app, DB or file
 Support various export formats: xml, DOC, ODT, XLS, DOCX, XLSX, HTML
 Enable various methods of data fetching such as XSL, SQL, JPQL or Groovy script
+
 
