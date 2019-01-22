@@ -6,50 +6,51 @@ import StringUtils.StringUtils;
 
 public class Java2HTMLReportBuilder 
 {
-	// This builder will automatically build the order by from the columns in the selections and append any specified order by to it.
-	// Table formatting can be Managed with css, i.e.; table, th, td {border: 1px solid black; border-collapse: collapse; width: 80%; text-align: center; table-layout: fixed;	}
-	// Row Hover - tr:hover {background-color: #f5f5f5;}
-	// Striped Tables - tr:nth-child(even) {background-color: #f2f2f2;}
-	// set position of table caption - caption {  caption-side: bottom; }
-	// table header specific - th {  padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;	}
+	// This builder will automatically build the order by from the columns in the Sections_lhm and append any specified order by (OrderBy_str) to it.
+	// Table formatting can be Managed with css
+	//			i.e.; table, th, td {border: 1px solid black; border-collapse: collapse; width: 80%; text-align: center; table-layout: fixed;	}
+	// 			Row Hover - tr:hover {background-color: #f5f5f5;}
+	//			Header color th {background-color: #9999CC;}
+	// 			Striped Tables - tr:nth-child(odd) {background-color: #f2f2f2;}
+	// 			set position of table caption - caption {  caption-side: bottom; }
+	// 			table header specific - th {  padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;	}
 	
-	// Font attributes can be Managed with css; font, size, color etc  each section is named
-	// Section names:		Style Sheet Example p.ReportHeader { color: blue; font-family: impact; font-size: 300%; background-color:lightblue; border: 5px solid yellow; width: 80%;}
+	// Font attributes can be Managed with css; font, size, color, etc.  each section is named
+	// Section names:		Style Sheet Example: p.ReportHeader { color: blue; font-family: impact; font-size: 300%; background-color:lightblue; border: 5px solid yellow; width: 80%;}
 	//		p.ReportTitle		
 	//		p.ReportHeader	
-	//		p.ReportFooter
+	//		p.ReportFooter	
+	//		p.ReportPageNumber
+
 	
 	// TODO: auto calculate data table width % based on total size of biggest data elements in each column
-	// TODO: calculate pages for printing
+	// TODO: calculate pages for printing page numbers
+	
+	// TODO: 
 	
 
-//	public class ReportAtrributes
-//		{
-		public String Title_str = "Report Main Title";
-		public Integer TitleFontSize_int = 12;
-		public String TitleAlign_str = "center"; 		
-		public String TitleFontSize_str = "<font size=" + TitleFontSize_int + ">";
+		public String Title_str = "Report Main Title"; 
+		public int TitleDividerLineLength = 80;
+		public String TitleDividerCharacter = "_";
 		
 		public String Header_str = "Header";
-		public Integer HeaderFontSize_int = 6;
-		public String HeaderAlign_str = "left"; 		
-		public String HeaderFontSize_str = "<font size=" + HeaderFontSize_int + ">";
+		public int HeaderDividerLineLength = 80;
+		public String HeaderDividerCharacter = "_";
 		
-		public String Footer_str = "Footer";
-		public Integer FooterFontSize_int = 4;
-		public String FooterAlign_str = "right"; 		
-		public String FooterFontSize_str = "<font size=" + FooterFontSize_int + ">";
+		public String Footer_str = "Footer"; 
+		public int FooterDividerLineLength = 60;
+		public String FooterDividerCharacter = ".";
 		
-		// public String DataTableAlign_str = "center";			 Always centered
+		public String PageNumber_str = "1";
+		
 		public String DataTableRowAlign_str = "center";
 		public String DataTableName_str = "wg_DataTable";
+		public String DataTableCaption_str = "Table 1.1 Caption";
+	
+		// to be removed after testing
 		public String DataTableWidthPercent_str = "80";
 		public Integer DataTableBorder_int = 1;
 		public String DataTableBorder_str = "border='" + DataTableBorder_int + "';";
-		public String DataTableCaption_str = "";
-		
-//		
-//		}
 		
 	
 //	private ReportAtrributes Report_obj = new ReportAtrributes();
@@ -91,7 +92,19 @@ public class Java2HTMLReportBuilder
 	
 		}
 	
-
+	private String DividerLength(int Value_int, String DividerCharacter_str)
+	{
+		int Counter_int = 0;
+		String TempString_str = "";
+		
+		while(Counter_int < Value_int)
+			{
+			TempString_str = TempString_str + DividerCharacter_str;
+			Counter_int++;
+			}
+		return TempString_str;
+		
+	}
 	
 	public String HTMLFormatedReport()
 		{
@@ -99,11 +112,20 @@ public class Java2HTMLReportBuilder
 		if(StringUtils.StringNotEmptyAndNotNull(DataTableCaption_str))
 			tempDataTableCaption_str = "<caption>" + DataTableCaption_str  + " </caption>";
 		
+		if(Title_str.length()>0)
+			System.out.println("<p class='ReportTitle'>" + Title_str + "</p>");
 		
-		System.out.println("<p class='ReportTitle'>" + Title_str + "</p>");
-		System.out.println("<p class='ReportHeader'>" +  Header_str + "</p>");
+		if(TitleDividerLineLength > 0)
+			System.out.println("<p class='ReportHeaderDivider'>" + DividerLength(TitleDividerLineLength, TitleDividerCharacter) + "</p>");
+
+		if(Header_str.length() > 0)
+			System.out.println("<p class='ReportHeader'>" +  Header_str + "</p>");
+		
+		if(HeaderDividerLineLength > 0)
+			System.out.println("<p class='ReportHeaderDivider'>" + DividerLength(HeaderDividerLineLength, HeaderDividerCharacter) + "</p>");
+
 		System.out.println("<div style='overflow-x:auto;'>");
-		System.out.println("<table >\n" + tempDataTableCaption_str + 
+		System.out.println("<table >\n"  + 
 				"<tbody>\n" + 
 				"<tr style=\"text-align: center;\">\n" + 
 				TableHeader_str +
@@ -122,10 +144,24 @@ public class Java2HTMLReportBuilder
 				"	<td>31</td>\n" + 
 				"	<td>F</td>\n" + 
 				"</tr>\n" + 
-				"</tbody>\n" + 
+				
+				"<tr style=\"text-align: center;\">\n" + 
+				"	<td style=\"text-align: right;\">Average</td>\n" + 
+				"	<td>27</td>\n" + 
+				"	<td>&nbsp;</td>\n" + 
+				"</tr>\n" + 
+
+				"</tbody>\n" + tempDataTableCaption_str + 
 				"</table> <br>");
 		System.out.println("</div>");
-		System.out.println("<p class='ReportFooter'>"  +  Footer_str + "</p>");
+		
+		if(FooterDividerLineLength > 0)
+			System.out.println("<p class='ReportHeaderDivider'>" + DividerLength(FooterDividerLineLength, FooterDividerCharacter) + "</p>");
+
+		if(Footer_str.length() > 0)
+			System.out.println("<p class='ReportFooter'>"  +  Footer_str + "</p>");
+		
+		System.out.println("<p class='ReportPageNumber'>  Page Number: " + PageNumber_str + "</p>");
 		
 		
 		return "UGH";
