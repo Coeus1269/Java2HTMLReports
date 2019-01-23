@@ -1,5 +1,8 @@
 package Java2HTMLReports;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import StringUtils.StringUtils;
 
@@ -202,6 +205,10 @@ public class Java2HTMLReportBuilder
 	
 	public String BuildTableHeader()
 	{	
+		// Purpose: output table header to HTML from DataTableColumns_lhm
+		// Usage: 	
+		// Issues:
+		
 	// Build the inner table header "<th>Key</th>"
 	if(DataTableColumns_lhm.size() > 0)
 		{
@@ -215,5 +222,5 @@ public class Java2HTMLReportBuilder
 	return TableHeader_str;
 		
 	}
-
+	
 }
